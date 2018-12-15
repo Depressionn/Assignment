@@ -10,3 +10,10 @@ C:\Users\tanti\OneDrive\Documents\Visual Studio 2015\Projects\Assignment\Assignm
 C:\Users\tanti\OneDrive\Documents\Visual Studio 2015\Projects\Assignment\Assignment\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe
 C:\Users\tanti\OneDrive\Documents\Visual Studio 2015\Projects\Assignment\Assignment\ConsoleApplication1\bin\Debug\ConsoleApplication1.pdb
 C:\Users\tanti\OneDrive\Documents\Visual Studio 2015\Projects\Assignment\Assignment\ConsoleApplication1\obj\Debug\Assignment_1.csprojResolveAssemblyReference.cache
+D:\Programming\Assignment\Assignment\Assignment\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe.config
+D:\Programming\Assignment\Assignment\Assignment\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe
+D:\Programming\Assignment\Assignment\Assignment\ConsoleApplication1\bin\Debug\ConsoleApplication1.pdb
+D:\Programming\Assignment\Assignment\Assignment\ConsoleApplication1\obj\Debug\Assignment_1.csprojAssemblyReference.cache
+D:\Programming\Assignment\Assignment\Assignment\ConsoleApplication1\obj\Debug\Assignment_1.csproj.CoreCompileInputs.cache
+D:\Programming\Assignment\Assignment\Assignment\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
+D:\Programming\Assignment\Assignment\Assignment\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb
