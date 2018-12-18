@@ -1,0 +1,9 @@
+C:\Users\Potatoe\Desktop\tempStorage\Gui_1\bin\Debug\Gui_1.exe.config
+C:\Users\Potatoe\Desktop\tempStorage\Gui_1\bin\Debug\Gui_1.exe
+C:\Users\Potatoe\Desktop\tempStorage\Gui_1\bin\Debug\Gui_1.pdb
+C:\Users\Potatoe\Desktop\tempStorage\Gui_1\obj\Debug\Gui_1.csprojResolveAssemblyReference.cache
+C:\Users\Potatoe\Desktop\tempStorage\Gui_1\obj\Debug\Gui_1.Assignment.resources
+C:\Users\Potatoe\Desktop\tempStorage\Gui_1\obj\Debug\Gui_1.Properties.Resources.resources
+C:\Users\Potatoe\Desktop\tempStorage\Gui_1\obj\Debug\Gui_1.csproj.GenerateResource.Cache
+C:\Users\Potatoe\Desktop\tempStorage\Gui_1\obj\Debug\Gui_1.exe
+C:\Users\Potatoe\Desktop\tempStorage\Gui_1\obj\Debug\Gui_1.pdb
