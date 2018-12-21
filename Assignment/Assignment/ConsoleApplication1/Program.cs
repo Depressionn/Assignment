@@ -1,16 +1,22 @@
-﻿using System;
+﻿using ConsoleApplication1;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Assignment_1 {
 	class Program {
+        [STAThread]
 		static void Main(string[] args) {
 			Guide testGuide = new Guide();
 			testGuide.InitLines();
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Form1());
 
-			Console.Write("Enter starting station : ");
+             Console.Write("Enter starting station : ");
 			string starting = Console.ReadLine();
 			Console.Write("Enter ending station : ");
 			string ending = Console.ReadLine();

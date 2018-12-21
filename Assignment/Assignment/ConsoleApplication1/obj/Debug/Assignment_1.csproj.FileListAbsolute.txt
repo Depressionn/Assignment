@@ -17,3 +17,5 @@ D:\Programming\Assignment\Assignment\Assignment\ConsoleApplication1\obj\Debug\As
 D:\Programming\Assignment\Assignment\Assignment\ConsoleApplication1\obj\Debug\Assignment_1.csproj.CoreCompileInputs.cache
 D:\Programming\Assignment\Assignment\Assignment\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
 D:\Programming\Assignment\Assignment\Assignment\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb
+D:\Programming\Assignment\Assignment\Assignment\ConsoleApplication1\obj\Debug\ConsoleApplication1.Form1.resources
+D:\Programming\Assignment\Assignment\Assignment\ConsoleApplication1\obj\Debug\Assignment_1.csproj.GenerateResource.cache
