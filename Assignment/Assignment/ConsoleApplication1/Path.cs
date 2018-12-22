@@ -6,157 +6,154 @@ using System.Threading.Tasks;
 
 namespace Assignment_1 {
 	class Path {
-		private List<Line> lines = new List<Line>();
-		private List<Station> firstPath = new List<Station>();
-		private List<Station> secondPath = new List<Station>();
+		private List<SubPath> subPaths = new List<SubPath>();
+		private List<List<Station>> possiblePaths = new List<List<Station>>();
 		private List<Station> completePath = new List<Station>();
 
-		public Path() { }//default
+		public Path(Station start, Station end) {
+			createPath(start, end);
+		}
 
-		public Path(Station startingStation, Station endingStation) {
-			completePath = initPath(startingStation, endingStation);
-		}//make path
-
-		//properties
 		public List<Station> CompletePath {
 			get { return completePath; }
-		}//call this to get the path
-
-		public List<Station> FirstPath {
-			get { return firstPath; }
 		}
 
-		public List<Station> SecondPath {
-			get { return secondPath; }
-		}
-
-		//methods
-		private List<Station> initPath(Station start, Station end) {
-			if (start.LineBelong == end.LineBelong) {
-				firstPath = pathToDestination(start, end);
-				return pathToDestination(start, end);
-			}//same line
-			else {
-				List<Station> returnList = new List<Station>();
-				List<Station> junctions = findJuctions(start, end);
-				if (junctions == null)
-					return null;
-				returnList.AddRange(pathToDestination(start, junctions, end));
-				firstPath.AddRange(pathToDestination(start, junctions, end));
-				Station junctionUsed = returnList[returnList.Count() - 1];
-				returnList.AddRange(pathToDestination(junctionUsed, end));
-				secondPath.AddRange(pathToDestination(junctionUsed, end));
-				returnList.Add(junctionUsed);
-				return returnList;
-			}//different lines
-		}//finds path
-
-		private List<Station> pathToDestination(Station start, Station end) {
-			int starting = start.LineBelong.Stations.IndexOf(start);
-			int ending = end.LineBelong.Stations.IndexOf(end);
-			List<Station> returnList = new List<Station>();
-			if (starting > ending) {
-				for (int count = starting; count >= ending; count--)
-					returnList.Add(start.LineBelong.Stations[count]);
-			}
-			else {
-				for (int count = starting; count <= ending; count++)
-					returnList.Add(start.LineBelong.Stations[count]);
-			}
-			return returnList;
-		}//path to destinations on the same line
-
-		private List<Station> findJuctions(Station station1, Station station2) {
-			Line line1 = station1.LineBelong;
-			Line line2 = station2.LineBelong;
-			//the two lines
-			List<Station> returnList = new List<Station>();
-
-			for (int count = 0; count <= line1.Stations.Count() - 1; count++) {
-				for(int count1 = 0; count1 <= line2.Stations.Count() - 1; count1++) {
-					if(line1.Stations[count].StationName.Equals(line2.Stations[count1].StationName))
-						returnList.Add(line1.Stations[count]);
+		private void createPath(Station start, Station end) {
+			if (!start.Junction && !end.Junction) {
+				Line startLine = start.LineBelong;
+				Line endLine = end.LineBelong;
+				List<Station> junctions = findJunction(startLine, endLine);
+				for (int count = 0; count <= junctions.Count() - 1; count++) {
+					SubPath temp = new SubPath(startLine, start, junctions[count]);
+					possiblePaths.Add(temp.PathTaken);
+					temp = new SubPath(endLine, junctions[count], end);
+					List<Station> extendedPath = combinedLists(possiblePaths[count], temp.PathTaken);
+					possiblePaths[count] = extendedPath;
 				}
+				completePath.AddRange(possiblePaths[indexOfSmallestList(possiblePaths)]);
+			}//if neither are junctions
+			else if (start.Junction && end.Junction) {
+				List<Line> line1 = start.getLines();
+				List<Line> line2 = end.getLines();
+				if (line1.Any(x => line2.Contains(x))) {    //on same line
+					Line lineUsed = findCommonLine(line1, line2);
+					SubPath temp = new SubPath(lineUsed, start, end);
+					completePath.AddRange(temp.PathTaken);
+				}
+				else {
+					List<Station> junctions = findJunctions(line1, line2);
+					for (int line1Count = 0; line1Count <= line1.Count() - 1; line1Count++) {
+						for (int line2Count = 0; line2Count <= line2.Count() - 1; line2Count++) {
+							for (int count = 0; count <= junctions.Count() - 1; count++) {
+								if (line1[line1Count].Stations.Contains(junctions[count]) && line2[line2Count].Stations.Contains(junctions[count])) {
+									SubPath temp = new SubPath(line1[line1Count], start, junctions[count]);
+									possiblePaths.Add(temp.PathTaken);
+									temp = new SubPath(line2[line2Count], junctions[count], end);
+									List<Station> extendedPath = combinedLists(possiblePaths[count], temp.PathTaken);
+									possiblePaths[count] = extendedPath;
+								}
+							}
+							completePath.AddRange(possiblePaths[indexOfSmallestList(possiblePaths)]);
+						}
+					}
+				}
+			}//if both are junctions
+			else if (!start.Junction && end.Junction) {
+				Line startLine = start.LineBelong;
+				List<Line> endLines = end.getLines();
+				List<Station> junctions = findJunctions(endLines, startLine);
+				for (int count1 = 0; count1 <= endLines.Count() - 1; count1++) {
+					for (int count = 0; count <= junctions.Count() - 1; count++) {
+						if (endLines[count1].Stations.Contains(junctions[count]) && startLine.Stations.Contains(junctions[count])) {
+							SubPath temp = new SubPath(startLine, start, junctions[count]);
+							possiblePaths.Add(temp.PathTaken);
+							temp = new SubPath(endLines[count1], junctions[count], end);
+							List<Station> extendedPath = combinedLists(possiblePaths[count], temp.PathTaken);
+							possiblePaths[count] = extendedPath;
+						}
+					}
 
-			}
-			//add any junctions between the two lines
+				}
+				completePath.AddRange(possiblePaths[indexOfSmallestList(possiblePaths)]);
+			}//if only end is a junction
+			else {
+				List<Line> startLine = start.getLines();
+				Line endLine = end.LineBelong;
+				List<Station> junctions = findJunctions(startLine, endLine);
+				for (int count1 = 0; count1 <= startLine.Count() - 1; count1++) {
+					for (int count = 0; count <= junctions.Count() - 1; count++) {
+						if (startLine[count1].Stations.Contains(junctions[count]) && endLine.Stations.Contains(junctions[count])) {
+							SubPath temp = new SubPath(startLine[count1], start, junctions[count]);
+							possiblePaths.Add(temp.PathTaken);
+							temp = new SubPath(endLine, junctions[count], end);
+							List<Station> extendedPath = combinedLists(possiblePaths[count], temp.PathTaken);
+							possiblePaths[count] = extendedPath;
+						}
+					}
 
-			if (returnList.Count() == 0)
-				return null;
-			//if no junctions
+				}
+				completePath.AddRange(possiblePaths[indexOfSmallestList(possiblePaths)]);
+			}//if only start is junction
+		}//create path
 
-			return returnList;
-		}//find junctions on two lines
-
-		private List<Station> pathToDestination(Station start, List<Station> junctions, Station end) {
+		private List<Station> findJunction(Line line1, Line line2) {
 			List<Station> returnList = new List<Station>();
-
-			List<int> numberOfStops = new List<int>();
-			for (int count = 0; count <= junctions.Count() - 1; count++) {
-				//first section
-				//before changing
-				int starting = start.LineBelong.Stations.IndexOf(start);
-				int ending = start.LineBelong.Stations.IndexOf(junctions[count]);
-
-				int x = (starting > ending) ? starting : ending;
-				int y = (x == starting) ? ending : starting;
-				//ensure x is always larger than y
-
-				int total = x - y;
-
-				//second section
-				//after changing
-				starting = end.LineBelong.Stations.IndexOf(junctions[count]);
-				ending = end.LineBelong.Stations.IndexOf(end);
-
-			    x = (starting > ending) ? starting : ending;
-				y = (x == starting) ? ending : starting;
-
-				total += (x - y);
-				numberOfStops.Add(total);
+			for (int count = 0; count <= line1.Stations.Count() - 1; count++) {
+				for (int count1 = 0; count1 <= line2.Stations.Count() - 1; count1++) {
+					if (line1.Stations[count].StationName.Equals(line2.Stations[count1].StationName)) {
+						returnList.Add(line1.Stations[count]);
+					}
+				}
 			}
-			int shorterDistance = findSmallest(numberOfStops);
-			Station junctionUsed = junctions[shorterDistance];
-			Line firstLine = start.LineBelong;
-			Line secondLine = end.LineBelong;
-			returnList.AddRange(pathToDestination(start, firstLine.Stations[findIndex(firstLine, junctionUsed.StationName)]));
-			returnList.AddRange(pathToDestination(secondLine.Stations[findIndex(secondLine, junctionUsed.StationName)], end));
-			returnList.RemoveAt(returnList.Count() - 1);
 			return returnList;
-		}//find path when junctions are involved
+		}//finds junctions given two lines
 
-		private int findIndex(Line line, string name) {
-			for(int count = 0; count <= line.Stations.Count() - 1; count ++) {
-				if (line.Stations[count].StationName.Equals(name))
-					return count;
+		private List<Station> findJunctions(List<Line> line1, Line line2) {
+			List<Station> returnList = new List<Station>();
+			for (int count = 0; count <= line1.Count() - 1; count++) {
+				returnList.AddRange(findJunction(line1[count], line2));
 			}
-			return -1;
-		}
-
-		private int findSmallest(List<int> arr) {
-			int smallest = arr[0];
-			for (int count = 1; count <= arr.Count() - 1; count++) {
-				if (arr[count] <= smallest)
-					smallest = arr[count];
-			}
-			return arr.IndexOf(smallest);
-		}//find index of smallest int
-
-		public List<string> removeDuplicates(List<string> input) {
-			List<string> returnList = new List<string>();
-			for(int count = 0; count <= input.Count - 1; count++) 
-				if (!returnList.Contains(input[count])) 
-					returnList.Add(input[count]);
 			return returnList;
-		}//remove duplicates
+		}//finds junctions given a listLine and a line
 
-		public int indexOfDuplicate(List<string> input) {
-			for (int count1 = 0; count1 <= input.Count() - 1; count1++) 
-				for(int count2 = count1; count2 <= input.Count() - 1; count2++) 
-					if (input[count1].Equals(input[count2]))
-						return count2;
-			return -1;
-		}//find index of nearest duplicate
+		private List<Station> findJunctions(List<Line> lines1, List<Line> lines2) {
+			List<Station> returnList = new List<Station>();
+			for (int count = 0; count <= lines1.Count() - 1; count++) {
+				for (int count2 = 0; count2 <= lines2.Count() - 1; count2++) {
+					returnList.AddRange(findJunction(lines1[count], lines2[count2]));
+				}
+			}
+			return returnList;
+		}//find junctions given two list lines
 
-	}
+		private List<Station> combinedLists(List<Station> list1, List<Station> list2) {
+			List<Station> returnList = new List<Station>();
+			returnList.AddRange(list1);
+			returnList.AddRange(list2);
+			return returnList;
+		}//combines two paths into one
+
+		private int indexOfSmallestList(List<List<Station>> input) {
+			int smallestLength = input[0].Count(), returnInt = 0;
+			for (int count = 1; count <= input.Count() - 1; count++) {
+				int lengthOfCurrent = input[count].Count();
+				if (lengthOfCurrent < smallestLength) {
+					smallestLength = lengthOfCurrent;
+					returnInt = count;
+				}
+			}
+			return returnInt;
+		}//finds index of smallest list
+
+		private Line findCommonLine(List<Line> line1, List<Line> line2) {
+			for (int count1 = 0; count1 <= line1.Count() - 1; count1++)
+				for (int count2 = 0; count2 <= line2.Count() - 1; count2++)
+					if (line1[count1] == line2[count2])
+						return line1[count1];
+			return null;
+
+		}//finds the common line given two listLines
+		 //first line to be found is returned
+
+	}//end class
 }

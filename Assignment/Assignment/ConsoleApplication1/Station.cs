@@ -43,5 +43,11 @@ namespace Assignment_1 {
 			get { return junction; }
 			set { junction = value; }
 		}
+
+		public virtual void setupJunction(Line line, int stationNumber) { }
+
+		public virtual List<Line> getLines() { return null; }
+
+		public virtual List<int> getStationNumbers() { return null; }
 	}
 }
