@@ -16,7 +16,7 @@ namespace Assignment_1 {
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
 
-             Console.Write("Enter starting station : ");
+            Console.Write("Enter starting station : ");
 			string starting = Console.ReadLine();
 			Console.Write("Enter ending station : ");
 			string ending = Console.ReadLine();
