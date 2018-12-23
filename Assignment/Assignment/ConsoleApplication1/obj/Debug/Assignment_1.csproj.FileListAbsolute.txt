@@ -19,3 +19,13 @@ D:\Programming\Assignment\Assignment\Assignment\ConsoleApplication1\obj\Debug\Co
 D:\Programming\Assignment\Assignment\Assignment\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb
 D:\Programming\Assignment\Assignment\Assignment\ConsoleApplication1\obj\Debug\ConsoleApplication1.Form1.resources
 D:\Programming\Assignment\Assignment\Assignment\ConsoleApplication1\obj\Debug\Assignment_1.csproj.GenerateResource.cache
+C:\Users\Potatoe\Desktop\tempStorage\Assignment-master\Assignment\Assignment\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe.config
+C:\Users\Potatoe\Desktop\tempStorage\Assignment-master\Assignment\Assignment\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
+C:\Users\Potatoe\Desktop\tempStorage\Assignment-master\Assignment\Assignment\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb
+C:\Users\Potatoe\Desktop\tempStorage\Assignment-master\Assignment\Assignment\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe
+C:\Users\Potatoe\Desktop\tempStorage\Assignment-master\Assignment\Assignment\ConsoleApplication1\bin\Debug\ConsoleApplication1.pdb
+C:\Users\Potatoe\Desktop\tempStorage\Assignment-master\Assignment\Assignment\ConsoleApplication1\obj\Debug\Assignment_1.csprojResolveAssemblyReference.cache
+C:\Users\Potatoe\Desktop\tempStorage\Assignment-master\Assignment\Assignment\ConsoleApplication1\obj\Debug\Assignment_1.csproj.GenerateResource.Cache
+C:\Users\Potatoe\Desktop\tempStorage\Assignment-master\Assignment\Assignment\ConsoleApplication1\obj\Debug\ConsoleApplication1.AssignmentForm.resources
+C:\Users\Potatoe\Desktop\tempStorage\Assignment-master\Assignment\Assignment\ConsoleApplication1\obj\Debug\Assignment_1.Properties.Resources.resources
+C:\Users\Potatoe\Desktop\tempStorage\Assignment-master\Assignment\Assignment\ConsoleApplication1\bin\Debug\Assignment_1.exe.config

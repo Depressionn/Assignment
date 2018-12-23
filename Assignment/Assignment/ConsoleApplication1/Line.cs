@@ -9,6 +9,7 @@ namespace Assignment_1 {
 		private string name, id;
 		private List<double> distances = new List<double>();
 		private List<Station> stations = new List<Station>();
+		private List<string> stationNames = new List<string>();
 
 		//Constructor
 		public Line() { }//default
@@ -32,6 +33,11 @@ namespace Assignment_1 {
 		public List<double> Distances {
 			get { return this.distances; }
 			set { this.distances = value; }
+		}
+
+		public List<string> StationNames {
+			get { return this.stationNames; }
+			set { this.stationNames = value; }
 		}
 
 		public List<Station> Stations {
